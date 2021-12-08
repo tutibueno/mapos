@@ -313,6 +313,8 @@ class Mine extends CI_Controller
         $data['produtos'] = $this->os_model->getProdutos($this->uri->segment(3));
         $data['servicos'] = $this->os_model->getServicos($this->uri->segment(3));
         $data['emitente'] = $this->mapos_model->getEmitente();
+        $data['anotacoes'] = $this->os_model->getAnotacoes($this->uri->segment(3));
+        $data['anexos'] = $this->os_model->getAnexos($this->uri->segment(3));
 
         if ($data['result']->idClientes != $this->session->userdata('cliente_id')) {
             $this->session->set_flashdata('error', 'Esta OS não pertence ao cliente logado.');

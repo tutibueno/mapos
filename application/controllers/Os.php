@@ -401,6 +401,7 @@ class Os extends MY_Controller
 
         $this->data['produtos'] = $this->os_model->getProdutos($this->uri->segment(3));
         $this->data['servicos'] = $this->os_model->getServicos($this->uri->segment(3));
+        $this->data['anotacoes'] = $this->os_model->getAnotacoes($this->uri->segment(3));
         $this->data['emitente'] = $this->mapos_model->getEmitente();
 
         if (!isset($this->data['emitente'][0]->email)) {
@@ -894,6 +895,7 @@ class Os extends MY_Controller
 
         $dados['produtos'] = $this->os_model->getProdutos($idOs);
         $dados['servicos'] = $this->os_model->getServicos($idOs);
+        $dados['anotacoes'] = $this->os_model->getAnotacoes($idOs);
         $dados['emitente'] = $this->mapos_model->getEmitente();
 
         $emitente = $dados['emitente'][0]->email;
