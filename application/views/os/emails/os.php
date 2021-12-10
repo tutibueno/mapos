@@ -222,21 +222,20 @@ $totalProdutos = 0; ?>
                 </tr>
             <?php } ?>
 
+            <?php if ($anotacoes) { ?>
+
                 <tr class="heading">
                     <td>Anotações</td>
                     <td colspan="3">Data/Hora</td>
                 </tr>
-                
-                <?php
-                foreach ($anotacoes as $a) {
-                    echo '<tr class="item">';
-                    echo '<td>' . $a->anotacao . '</td>';
-                    echo '<td colspan="3">' . date('d/m/Y H:i:s', strtotime($a->data_hora)) . '</td>';
-                    echo '</tr>';
-                }
-                if (!$anotacoes) {
-                    echo '<tr class="item"><td colspan="2">Nenhuma anotação cadastrada</td></tr>';
-                }?>
+
+                <?php foreach ($anotacoes as $a) {
+                        echo '<tr class="item">';
+                        echo '<td>' . $a->anotacao . '</td>';
+                        echo '<td colspan="3">' . date('d/m/Y H:i:s', strtotime($a->data_hora)) . '</td>';
+                        echo '</tr>';
+                    }
+            }?>
             
             <?php if ($produtos) { ?>
 

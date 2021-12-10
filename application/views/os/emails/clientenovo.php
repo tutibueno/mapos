@@ -166,6 +166,7 @@
                     2 - Entre no nosso sistema e crie sua própria Ordem de Serviço, descrevendo o defeito ou serviço a realizar no aparelho, fazendo suas observações; <br>
                     3 - Para criar uma nova Ordem de Serviço, entre no nosso sistema com seu email (usuário) e CPF (senha). Uma vez no sistema, clique em "Ordens de Serviço" e "+Adicionar OS"; <br>
                     4 - Depois da Ordem de Serviço criada, você receberá um e-mail de confirmação e poderá enviar seu aparelho para o endereço que está no cabeçalho deste e-mail. <br>
+                    5 - O prazo para orçamento é de 4 a 12 dias úteis após o recebimento do aparelho. <br>
                 </td>
             </tr>
             <tr class="details">

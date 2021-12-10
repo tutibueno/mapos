@@ -355,6 +355,8 @@ class Mine extends CI_Controller
         $data['produtos'] = $this->os_model->getProdutos($this->uri->segment(3));
         $data['servicos'] = $this->os_model->getServicos($this->uri->segment(3));
         $data['emitente'] = $this->mapos_model->getEmitente();
+        $data['anotacoes'] = $this->os_model->getAnotacoes($this->uri->segment(3));
+        $data['anexos'] = $this->os_model->getAnexos($this->uri->segment(3));
 
         if ($data['result']->idClientes != $this->session->userdata('cliente_id')) {
             $this->session->set_flashdata('error', 'Esta OS não pertence ao cliente logado.');
@@ -435,6 +437,8 @@ class Mine extends CI_Controller
             } else {
                 $data['produtos'] = $this->os_model->getProdutos($id);
                 $data['servicos'] = $this->os_model->getServicos($id);
+                $data['anotacoes'] = $this->os_model->getAnotacoes($id);
+                $data['anexos'] = $this->os_model->getAnexos($id);
                 $data['emitente'] = $this->mapos_model->getEmitente();
 
                 $this->load->view('conecte/minha_os', $data);
@@ -458,7 +462,8 @@ class Mine extends CI_Controller
             $this->data['custom_error'] = (validation_errors() ? true : false);
         } else {
             $id = null;
-            $usuario = $this->db->query('SELECT usuarios_id, count(*) as down FROM os GROUP BY usuarios_id ORDER BY down LIMIT 1')->row();
+            $this->db->where('idUsuarios', 1);
+            $usuario = $this->db->get('usuarios')->row();
             if ($usuario->usuarios_id == null) {
                 $this->db->where('situacao', 1);
                 $this->db->limit(1);
@@ -604,6 +609,8 @@ class Mine extends CI_Controller
 
         $dados['produtos'] = $this->os_model->getProdutos($idOs);
         $dados['servicos'] = $this->os_model->getServicos($idOs);
+        $data['anotacoes'] = $this->os_model->getAnotacoes($idOs);
+        $data['anexos'] = $this->os_model->getAnexos($idOs);
         $dados['emitente'] = $this->mapos_model->getEmitente();
 
         $emitente = $dados['emitente'][0]->email;
