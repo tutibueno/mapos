@@ -170,6 +170,19 @@ $totalProdutos = 0; ?>
                 </tr>
             <?php } ?>
 
+            <?php if ($result->numeroSerie) { ?>
+                <tr class="heading">
+                    <td colspan="4">
+                        <b>Número de Série</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="justify" colspan="4">
+                        <?= htmlspecialchars_decode($result->numeroSerie) ?>
+                    </td>
+                </tr>
+            <?php } ?>
+
             <?php if ($result->descricaoProduto) { ?>
                 <tr class="heading">
                     <td colspan="4">

@@ -91,6 +91,17 @@ $totalProdutos = 0; ?>
 
                             <table class="table table-condensed">
                                 <tbody>
+                                    <?php if ($result->numeroSerie != null) { ?>
+                                        <tr>
+                                            <td>
+                                                <strong>Número de Série</strong><br>
+                                                <?php echo htmlspecialchars_decode($result->numeroSerie) ?>
+                                            </td>
+                                        </tr>
+
+                                    <?php
+                                    } ?>
+
                                     <?php if ($result->descricaoProduto != null) { ?>
                                         <tr>
                                             <td>

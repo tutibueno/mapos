@@ -453,11 +453,12 @@ class Mine extends CI_Controller
     public function adicionarOs()
     {
         $this->load->library('form_validation');
-
+        
+        $this->form_validation->set_rules('numeroSerie', 'Numero de Série', 'required');
         $this->form_validation->set_rules('descricaoProduto', 'Descrição', 'required');
         $this->form_validation->set_rules('defeito', 'Defeito');
         $this->form_validation->set_rules('observacoes', 'Observações');
-
+        
         if ($this->form_validation->run() == false) {
             $this->data['custom_error'] = (validation_errors() ? true : false);
         } else {
@@ -484,6 +485,7 @@ class Mine extends CI_Controller
                 'clientes_id' => $this->session->userdata('cliente_id'), //set_value('idCliente'),
                 'usuarios_id' => $id, //set_value('idUsuario'),
                 'dataFinal' => date('Y-m-d'),
+                'numeroSerie' => $this->input->post('numeroSerie'),
                 'descricaoProduto' => $this->input->post('descricaoProduto'),
                 'defeito' => $this->input->post('defeito'),
                 'status' => 'Aberto',

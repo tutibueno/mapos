@@ -53,11 +53,18 @@
 
                                     </div>
 
+                                    <div class="control-group" style="padding: 1%; margin-left: 0">
+
+                                        <div class="span12">
+                                            <label for="numeroSerie"><b>Número de Série do Aparelho*</b></label>
+                                            <input class="span4" type="text" name="numeroSerie" id="numeroSerie"></input>
+                                        </div>
+                                    </div>
 
                                     <div class="span12" style="padding: 1%; margin-left: 0">
 
                                         <div class="span12">
-                                            <label for="descricaoProduto"><b>Descrição do(s) Aparelho(s) e/ou Serviço que Deseja*</b></label>
+                                            <label for="descricaoProduto"><b>Descrição do Aparelho e/ou Serviço que Deseja*</b></label>
                                             <textarea class="span12 editor" name="descricaoProduto" id="descricaoProduto" cols="30" rows="5"></textarea>
                                         </div>
                                     </div>
@@ -111,11 +118,17 @@
             rules: {
                 descricaoProduto: {
                     required: true
+                },
+                numeroSerie: {
+                    required: true
                 }
             },
             messages: {
                 descricaoProduto: {
                     required: 'O campo descrição da OS é obrigatório.'
+                },
+                numeroSerie: {
+                    required: 'O campo número de série é obrigatório.'
                 }
             },
 
