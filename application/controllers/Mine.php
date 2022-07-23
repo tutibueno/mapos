@@ -616,6 +616,7 @@ class Mine extends CI_Controller
         $dados['emitente'] = $this->mapos_model->getEmitente();
 
         $emitente = $dados['emitente'][0]->email;
+        $emitenteNome = $dados['emitente'][0]->nome;
         if (!isset($emitente)) {
             return false;
         }
@@ -627,7 +628,7 @@ class Mine extends CI_Controller
         $remetentes = array_unique($remetentes);
         foreach ($remetentes as $remetente) {
             $headers = [
-                'From' => $emitente,
+                'From' => "$emitenteNome <$emitente>",
                 'Subject' => $assunto,
                 'Return-Path' => ''
             ];
@@ -663,7 +664,7 @@ class Mine extends CI_Controller
         $this->load->model('email_model');
 
         $headers = [
-            'From' => "\"$emitenteNome\" <$emitente>",
+            'From' => "$emitenteNome <$emitente>",
             'Subject' => $assunto,
             'Return-Path' => ''
         ];
@@ -699,7 +700,7 @@ class Mine extends CI_Controller
             $dados['usuario'] = $usuario;
             $html = $this->load->view('os/emails/clientenovonotifica', $dados, true);
             $headers = [
-                'From' => "\"$emitenteNome\" <$emitente>",
+                'From' => "$emitenteNome <$emitente>",
                 'Subject' => $assunto,
                 'Return-Path' => ''
             ];

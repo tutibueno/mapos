@@ -947,6 +947,7 @@ class Os extends MY_Controller
         $dados['emitente'] = $this->mapos_model->getEmitente();
 
         $emitente = $dados['emitente'][0]->email;
+        $emitenteNome = $dados['emitente'][0]->nome;
         if (!isset($emitente)) {
             return false;
         }
@@ -959,7 +960,7 @@ class Os extends MY_Controller
         foreach ($remetentes as $remetente) {
             if($remetente == null)
                 continue;
-            $headers = ['From' => $emitente, 'Subject' => $assunto, 'Return-Path' => ''];
+            $headers = ['From' => "$emitenteNome <$emitente>", 'Subject' => $assunto, 'Return-Path' => ''];
             $email = [
                 'to' => $remetente,
                 'message' => $html,
