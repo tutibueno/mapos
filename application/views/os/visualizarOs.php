@@ -143,6 +143,15 @@
                                 </tr>
                             <?php } ?>
 
+                            <?php if ($result->numeroSerie != null) { ?>
+                                <tr>
+                                    <td colspan="6">
+                                        <b>NÚMERO DE SÉRIE: </b>
+                                        <?php echo htmlspecialchars_decode($result->numeroSerie) ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+
                             <?php if ($result->descricaoProduto != null) { ?>
                                 <tr>
                                     <td colspan="6">

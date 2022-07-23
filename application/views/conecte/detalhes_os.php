@@ -73,7 +73,11 @@
                                         <input id="garantia" disabled="disabled" type="text" class="span12" name="garantia" value="<?php echo $result->garantia ?>" />
                                     </div>
                                 </div>
-
+                                
+                                <div class="span12" style="padding: 1%; margin-left: 0">
+                                    <label for="numeroSerie">Número de Série</label>
+                                    <label name="numeroSerie" id="numeroSerie" ><?php echo $result->numeroSerie; ?></textarea>
+                                </div>
 
                                 <div class="span12" style="padding: 1%; margin-left: 0">
                                     <label for="descricaoProduto">Descrição Produto/Serviço</label>

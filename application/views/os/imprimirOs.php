@@ -128,6 +128,15 @@ $totalProdutos = 0; ?>
                                 <?php if ($result->descricaoProduto != null) { ?>
                                     <tr>
                                         <td colspan="5">
+                                            <b>NÚMERO DE SÉRIE: </b>
+                                            <?php echo htmlspecialchars_decode($result->numeroSerie) ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+
+                                <?php if ($result->descricaoProduto != null) { ?>
+                                    <tr>
+                                        <td colspan="5">
                                             <b>DESCRIÇÃO: </b>
                                             <?php echo htmlspecialchars_decode($result->descricaoProduto) ?>
                                         </td>

@@ -144,6 +144,12 @@
                                             <input id="garantias_id" class="span12" type="hidden" name="garantias_id" value="<?php echo $result->garantias_id ?>" />
                                         </div>
                                     </div>
+                                    <div class="span12" style="padding: 1%; margin-left: 0">
+                                        <label for="numeroSerie">
+                                            <h4>Número de Série</h4>
+                                        </label>
+                                        <input class="span5" name="numeroSerie" id="numeroSerie" type="text" value="<?php echo $result->numeroSerie ?>" />
+                                    </div>
                                     <div class="span6" style="padding: 1%; margin-left: 0">
                                         <label for="descricaoProduto">
                                             <h4>Descrição Produto/Serviço</h4>

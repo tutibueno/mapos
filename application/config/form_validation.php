@@ -200,6 +200,11 @@ $config = [
             'rules' => 'trim',
         ],
         [
+            'field' => 'numeroSerie',
+            'label' => 'NumeroSerie',
+            'rules' => 'trim',
+        ],
+        [
             'field' => 'descricaoProduto',
             'label' => 'DescricaoProduto',
             'rules' => 'trim',

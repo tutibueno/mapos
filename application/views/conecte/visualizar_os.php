@@ -91,6 +91,17 @@ $totalProdutos = 0; ?>
 
                             <table class="table table-condensed">
                                 <tbody>
+                                    <?php if ($result->numeroSerie != null) { ?>
+                                        <tr>
+                                            <td>
+                                                <strong>Número de Série</strong><br>
+                                                <?php echo htmlspecialchars_decode($result->numeroSerie) ?>
+                                            </td>
+                                        </tr>
+
+                                    <?php
+                                    } ?>
+
                                     <?php if ($result->descricaoProduto != null) { ?>
                                         <tr>
                                             <td>
@@ -138,7 +149,51 @@ $totalProdutos = 0; ?>
                         <?php
                         } ?>
 
-
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Anotação</th>
+                                <th>Data/Hora</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($anotacoes as $a) {
+                                echo '<tr>';
+                                echo '<td>' . $a->anotacao . '</td>';
+                                echo '<td>' . date('d/m/Y H:i:s', strtotime($a->data_hora)) . '</td>';
+                                echo '</tr>';
+                            }
+                            if (!$anotacoes) {
+                                echo '<tr><td colspan="2">Nenhuma anotação cadastrada</td></tr>';
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                        <?php if ($anexos != null) { ?>
+                            <table class="table table-bordered table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Anexo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                foreach ($anexos as $a) {
+                                    if ($a->thumb == null) {
+                                        $thumb = base_url() . 'assets/img/icon-file.png';
+                                        $link = base_url() . 'assets/img/icon-file.png';
+                                    } else {
+                                        $thumb = $a->url . '/thumbs/' . $a->thumb;
+                                        $link = $a->url . '/' . $a->anexo;
+                                    }
+                                    echo '<tr>';
+                                    echo '<td><a style="min-height: 150px;" href="#modal-anexo" imagem="' . $a->idAnexos . '" link="' . $link . '" role="button" class="btn anexo span12" data-toggle="modal"><img src="' . $thumb . '" alt=""></a></td>';
+                                    echo '</tr>';
+                                } ?>
+                                </tbody>
+                            </table>
+                        <?php } ?>
                         <?php if ($produtos != null || $servicos != null) { ?>
                             <br />
                             <table class="table table-condensed" id="tblProdutos">
@@ -192,6 +247,26 @@ $totalProdutos = 0; ?>
     </div>
 </div>
 
+<!-- Modal visualizar anexo -->
+<div id="modal-anexo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Visualizar Anexo</h3>
+    </div>
+    <div class="modal-body">
+        <div class="span12" id="div-visualizar-anexo" style="text-align: center">
+            <div class='progress progress-info progress-striped active'>
+                <div class='bar' style='width: 100%'></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+        <a href="" id-imagem="" class="btn btn-inverse" id="download">Download</a>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $("#imprimir").click(function() {
@@ -229,5 +304,16 @@ $totalProdutos = 0; ?>
 
             return true;
         }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('click', '.anexo', function (event) {
+            event.preventDefault();
+            var link = $(this).attr('link');
+            var id = $(this).attr('imagem');
+            $("#div-visualizar-anexo").html('<img src="' + link + '" alt="">');
+        });
     });
 </script>

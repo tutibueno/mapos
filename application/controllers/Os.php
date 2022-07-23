@@ -118,6 +118,7 @@ class Os extends MY_Controller
                 'dataFinal' => $dataFinal,
                 'garantia' => set_value('garantia'),
                 'garantias_id' => $termoGarantiaId,
+                'numeroSerie' => set_value('numeroSerie'),
                 'descricaoProduto' => set_value('descricaoProduto'),
                 'defeito' => set_value('defeito'),
                 'status' => set_value('status'),
@@ -217,6 +218,7 @@ class Os extends MY_Controller
                 'dataFinal' => $dataFinal,
                 'garantia' => $this->input->post('garantia'),
                 'garantias_id' => $termoGarantiaId,
+                'numeroSerie' => $this->input->post('numeroSerie'),
                 'descricaoProduto' => $this->input->post('descricaoProduto'),
                 'defeito' => $this->input->post('defeito'),
                 'status' => $this->input->post('status'),
@@ -401,6 +403,7 @@ class Os extends MY_Controller
 
         $this->data['produtos'] = $this->os_model->getProdutos($this->uri->segment(3));
         $this->data['servicos'] = $this->os_model->getServicos($this->uri->segment(3));
+        $this->data['anotacoes'] = $this->os_model->getAnotacoes($this->uri->segment(3));
         $this->data['emitente'] = $this->mapos_model->getEmitente();
 
         if (!isset($this->data['emitente'][0]->email)) {
@@ -461,6 +464,52 @@ class Os extends MY_Controller
 
         $this->session->set_flashdata('success', 'O sistema está com uma configuração ativada para não notificar. Entre em contato com o administrador.');
         redirect(site_url('os'));
+    }
+
+    public function enviarEmailSemVerificacao($id)
+    {
+        
+        $this->load->model('mapos_model');
+        $this->load->model('usuarios_model');
+        
+        $this->data['emitente'] = $this->mapos_model->getEmitente();
+
+        $idOs = $id;
+
+        $emitente = $this->data['emitente'][0];
+        $tecnico = $this->usuarios_model->getById(1);
+        $this->data['result'] = $this->os_model->getById($id);
+
+        // Verificar configuração de notificação
+        $ValidarEmail = false;
+        if ($this->data['configuration']['os_notification'] != 'nenhum') {
+            $remetentes = [];
+            switch ($this->data['configuration']['os_notification']) {
+                case 'todos':
+                    array_push($remetentes, $this->data['result']->email);
+                    array_push($remetentes, $tecnico->email);
+                    array_push($remetentes, $emitente->email);
+                    $ValidarEmail = true;
+                    break;
+                case 'cliente':
+                    array_push($remetentes, $this->data['result']->email);
+                    $ValidarEmail = true;
+                    break;
+                case 'tecnico':
+                    array_push($remetentes, $tecnico->email);
+                    break;
+                case 'emitente':
+                    array_push($remetentes, $emitente->email);
+                    break;
+                default:
+                    array_push($remetentes, $this->data['result']->email);
+                    $ValidarEmail = true;
+                    break;
+            }
+
+            $this->enviarOsPorEmail($idOs, $remetentes, 'Ordem de Serviço - Nova Anotação');
+
+        }
     }
 
     public function excluir()
@@ -894,9 +943,11 @@ class Os extends MY_Controller
 
         $dados['produtos'] = $this->os_model->getProdutos($idOs);
         $dados['servicos'] = $this->os_model->getServicos($idOs);
+        $dados['anotacoes'] = $this->os_model->getAnotacoes($idOs);
         $dados['emitente'] = $this->mapos_model->getEmitente();
 
         $emitente = $dados['emitente'][0]->email;
+        $emitenteNome = $dados['emitente'][0]->nome;
         if (!isset($emitente)) {
             return false;
         }
@@ -907,7 +958,9 @@ class Os extends MY_Controller
 
         $remetentes = array_unique($remetentes);
         foreach ($remetentes as $remetente) {
-            $headers = ['From' => $emitente, 'Subject' => $assunto, 'Return-Path' => ''];
+            if($remetente == null)
+                continue;
+            $headers = ['From' => "$emitenteNome <$emitente>", 'Subject' => $assunto, 'Return-Path' => ''];
             $email = [
                 'to' => $remetente,
                 'message' => $html,
@@ -934,6 +987,7 @@ class Os extends MY_Controller
             ];
 
             if ($this->os_model->add('anotacoes_os', $data) == true) {
+                $this->enviarEmailSemVerificacao($this->input->post('os_id'));
                 log_info('Adicionou anotação a uma OS. ID (OS): ' . $this->input->post('os_id'));
                 echo json_encode(['result' => true]);
             } else {

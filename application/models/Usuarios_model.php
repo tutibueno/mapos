@@ -44,6 +44,7 @@ class Usuarios_model extends CI_Model
 
     public function getAll()
     {
+        $this->db->where('situacao', 1);
         return $this->db->get('usuarios')->result();
     }
     

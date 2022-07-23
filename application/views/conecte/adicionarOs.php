@@ -40,18 +40,31 @@
 
                                 <form action="<?php echo current_url(); ?>" method="post" id="formOs">
 
-                                    <div class="span12" style="padding: 1%;">
-                                        <div class="span12 alert alert-info">
+                                    <div style="padding: 1%;">
+                                        <div class="alert alert-info">
                                             <h5 class="text-center">Preencha os campos abaixo detalhando o que você precisa. Campos com asterisco são obrigatórios.</h5>
                                         </div>
 
                                     </div>
+                                    <div style="padding: 1%;">
+                                        <div class="alert alert-error">
+                                            <h5 class="text-center">Atenção! O prazo para orçamento é de 4 a 12 dias úteis após o recebimento do aparelho.</h5>
+                                        </div>
 
+                                    </div>
+
+                                    <div class="control-group" style="padding: 1%; margin-left: 0">
+
+                                        <div class="span12">
+                                            <label for="numeroSerie"><b>Número de Série do Aparelho*</b></label>
+                                            <input class="span4" type="text" name="numeroSerie" id="numeroSerie"></input>
+                                        </div>
+                                    </div>
 
                                     <div class="span12" style="padding: 1%; margin-left: 0">
 
                                         <div class="span12">
-                                            <label for="descricaoProduto">Descrição Produto/Serviço*</label>
+                                            <label for="descricaoProduto"><b>Descrição do Aparelho e/ou Serviço que Deseja*</b></label>
                                             <textarea class="span12 editor" name="descricaoProduto" id="descricaoProduto" cols="30" rows="5"></textarea>
                                         </div>
                                     </div>
@@ -59,14 +72,14 @@
                                     <div class="span12" style="padding: 1%; margin-left: 0">
 
                                         <div class="span12">
-                                            <label for="defeito">Defeito</label>
+                                            <label for="defeito"><b>Defeito que o Aparelho Apresenta (Se Houver)</b></label>
                                             <textarea class="span12 editor" name="defeito" id="defeito" cols="30" rows="5"></textarea>
                                         </div>
 
                                     </div>
                                     <div class="span12" style="padding: 1%; margin-left: 0">
                                         <div class="span12">
-                                            <label for="observacoes">Observações</label>
+                                            <label for="observacoes"><b>Alguma Observação para Nós?</b></label>
                                             <textarea class="span12 editor" name="observacoes" id="observacoes" cols="30" rows="5"></textarea>
                                         </div>
 
@@ -105,11 +118,17 @@
             rules: {
                 descricaoProduto: {
                     required: true
+                },
+                numeroSerie: {
+                    required: true
                 }
             },
             messages: {
                 descricaoProduto: {
                     required: 'O campo descrição da OS é obrigatório.'
+                },
+                numeroSerie: {
+                    required: 'O campo número de série é obrigatório.'
                 }
             },
 
